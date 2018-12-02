@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="300.0" spacing="10.0" stylesheets="@dark-theme.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.Add_Genre_Controller">
+   <children>
+      <Label stylesheets="@dark-theme.css" text="Enter Genre Details:" VBox.vgrow="ALWAYS">
+         <font>
+            <Font name="SansSerif Regular" size="13.0" />
+         </font>
+      </Label>
+      <TextField fx:id="genre_name_input" promptText="Name" stylesheets="@dark-theme.css" VBox.vgrow="ALWAYS" />
+      <HBox prefWidth="200.0" spacing="10.0">
+         <children>
+            <Region prefWidth="73.0" />
+         </children>
+      </HBox>
+      <Button fx:id="add_genre_button" mnemonicParsing="false" onAction="#add_genre" text="Add" VBox.vgrow="ALWAYS" />
+   </children>
+   <padding>
+      <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+   </padding>
+</VBox>

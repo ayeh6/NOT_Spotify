@@ -1,0 +1,74 @@
+package application;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
+import javafx.stage.Stage;
+import java.io.IOException;
+
+public class Login_Screen_Controller {
+
+    public TextField input_username;
+    public PasswordField input_password;
+    public int u_admin;
+
+    public void login_pressed(ActionEvent event) throws IOException
+    {
+        try
+        {
+            Connection connection = null;
+            connection = DriverManager.getConnection("jdbc:sqlite:/Users/andrew_yeh/Desktop/Code/NOT Spotify/src/application/playlist_organizer.db");
+            Statement statement = connection.createStatement();
+            statement.setQueryTimeout(30);
+            String u_username = input_username.getText().replace("'","''");
+            String u_password = input_password.getText().replace("'","''");
+            ResultSet rs = statement.executeQuery("select u_admin from users where u_username like '"+u_username+"' and u_password='"+u_password+"'");
+            if(!rs.isBeforeFirst())
+            {
+                System.out.println("invalid username or password");
+            }
+            else
+            {
+                while(rs.next())
+                {
+                    u_admin = rs.getInt("u_admin");
+                }
+                if(u_admin==1)
+                {
+                    if(popup_windows.admin_alert_popup())
+                    {
+                        Parent admin_menuParent = FXMLLoader.load(getClass().getResource("admin_menu.fxml"));
+                        Scene admin_menuScene = new Scene(admin_menuParent);
+                        //get stage information
+                        Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+                        window.setScene(admin_menuScene);
+                        window.show();
+                        if(connection!=null)
+                        {
+                            connection.close();
+                        }
+                    }
+                }
+                else if(u_admin==0)
+                {
+                    // normal user menu
+                }
+            }
+        }
+        catch (SQLException e)
+        {
+            System.err.println(e.getMessage());
+        }
+    }
+
+
+}

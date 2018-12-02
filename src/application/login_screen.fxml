@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="360.0" prefWidth="640.0" stylesheets="@dark-theme.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.Login_Screen_Controller">
+   <center>
+      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+         <children>
+            <TextField fx:id="input_username" promptText="username" stylesheets="@dark-theme.css" VBox.vgrow="ALWAYS">
+               <font>
+                  <Font name="SansSerif Regular" size="13.0" />
+               </font>
+               <VBox.margin>
+                  <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+               </VBox.margin></TextField>
+            <PasswordField fx:id="input_password" promptText="password" stylesheets="@dark-theme.css" VBox.vgrow="ALWAYS">
+               <font>
+                  <Font name="Helvetica" size="13.0" />
+               </font>
+               <VBox.margin>
+                  <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+               </VBox.margin></PasswordField>
+            <Button mnemonicParsing="false" onAction="#login_pressed" stylesheets="@dark-theme.css" text="Login" textFill="WHITE" VBox.vgrow="ALWAYS">
+               <font>
+                  <Font name="SansSerif Bold" size="14.0" />
+               </font>
+               <VBox.margin>
+                  <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+               </VBox.margin></Button>
+         </children>
+      </VBox>
+   </center>
+   <left>
+      <Region prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+   </left>
+   <right>
+      <Region prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+   </right>
+   <bottom>
+      <Region prefHeight="85.0" prefWidth="640.0" BorderPane.alignment="CENTER" />
+   </bottom>
+   <top>
+      <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="TOP_CENTER">
+         <image>
+            <Image url="@not_Spotify.png" />
+         </image>
+      </ImageView>
+   </top>
+</BorderPane>

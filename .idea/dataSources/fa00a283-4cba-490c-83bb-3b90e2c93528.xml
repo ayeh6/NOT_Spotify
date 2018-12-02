@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataSource name="playlist_organizer">
+  <database-model serializer="dbm" dbms="SQLITE" family-id="SQLITE" format-version="4.14">
+    <root id="1">
+      <ServerVersion>3.25.1</ServerVersion>
+    </root>
+    <schema id="2" parent="1" name="main">
+      <Current>1</Current>
+      <Visible>1</Visible>
+    </schema>
+    <collation id="3" parent="1" name="BINARY"/>
+    <collation id="4" parent="1" name="NOCASE"/>
+    <collation id="5" parent="1" name="RTRIM"/>
+    <table id="6" parent="2" name="adds"/>
+    <table id="7" parent="2" name="albums"/>
+    <table id="8" parent="2" name="artists"/>
+    <table id="9" parent="2" name="genres"/>
+    <table id="10" parent="2" name="listens"/>
+    <table id="11" parent="2" name="playlists"/>
+    <table id="12" parent="2" name="songs"/>
+    <table id="13" parent="2" name="sqlite_master">
+      <System>1</System>
+    </table>
+    <table id="14" parent="2" name="users"/>
+    <column id="15" parent="6" name="ad_playlistID">
+      <Position>1</Position>
+      <DataType>decimal(3)|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="16" parent="6" name="ad_songID">
+      <Position>2</Position>
+      <DataType>decimal(3)|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <foreign-key id="17" parent="6">
+      <ColNames>ad_playlistID</ColNames>
+      <RefTableName>playlists</RefTableName>
+      <RefColNames>p_playlistID</RefColNames>
+      <OnDelete>cascade</OnDelete>
+      <OnUpdate>cascade</OnUpdate>
+    </foreign-key>
+    <foreign-key id="18" parent="6">
+      <ColNames>ad_songID</ColNames>
+      <RefTableName>songs</RefTableName>
+      <RefColNames>s_songID</RefColNames>
+      <OnDelete>cascade</OnDelete>
+      <OnUpdate>cascade</OnUpdate>
+    </foreign-key>
+    <column id="19" parent="7" name="al_albID">
+      <Position>1</Position>
+      <DataType>INTEGER|0s</DataType>
+    </column>
+    <column id="20" parent="7" name="al_name">
+      <Position>2</Position>
+      <DataType>char(25)|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="21" parent="7" name="al_artID">
+      <Position>3</Position>
+      <DataType>decimal(3)|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="22" parent="7" name="al_genID">
+      <Position>4</Position>
+      <DataType>decimal(3)|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <key id="23" parent="7">
+      <ColNames>al_albID</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="24" parent="7">
+      <ColNames>al_artID</ColNames>
+      <RefTableName>artists</RefTableName>
+      <RefColNames>ar_artID</RefColNames>
+      <OnDelete>cascade</OnDelete>
+      <OnUpdate>cascade</OnUpdate>
+    </foreign-key>
+    <foreign-key id="25" parent="7">
+      <ColNames>al_genID</ColNames>
+      <RefTableName>genres</RefTableName>
+      <RefColNames>g_genID</RefColNames>
+      <OnDelete>cascade</OnDelete>
+      <OnUpdate>cascade</OnUpdate>
+    </foreign-key>
+    <column id="26" parent="8" name="ar_artID">
+      <Position>1</Position>
+      <DataType>INTEGER|0s</DataType>
+    </column>
+    <column id="27" parent="8" name="ar_name">
+      <Position>2</Position>
+      <DataType>char(25)|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="28" parent="8" name="ar_genID">
+      <Position>3</Position>
+      <DataType>decimal(3)|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <key id="29" parent="8">
+      <ColNames>ar_artID</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="30" parent="9" name="g_genID">
+      <Position>1</Position>
+      <DataType>INTEGER|0s</DataType>
+    </column>
+    <column id="31" parent="9" name="g_name">
+      <Position>2</Position>
+      <DataType>char(25)|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <key id="32" parent="9">
+      <ColNames>g_genID</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="33" parent="10" name="l_userID">
+      <Position>1</Position>
+      <DataType>decimal(3)|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="34" parent="10" name="l_playlistID">
+      <Position>2</Position>
+      <DataType>decimal(3)|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <foreign-key id="35" parent="10">
+      <ColNames>l_userID</ColNames>
+      <RefTableName>users</RefTableName>
+      <RefColNames>u_userID</RefColNames>
+      <OnDelete>cascade</OnDelete>
+      <OnUpdate>cascade</OnUpdate>
+    </foreign-key>
+    <foreign-key id="36" parent="10">
+      <ColNames>l_playlistID</ColNames>
+      <RefTableName>playlists</RefTableName>
+      <RefColNames>p_playlistID</RefColNames>
+      <OnDelete>cascade</OnDelete>
+      <OnUpdate>cascade</OnUpdate>
+    </foreign-key>
+    <column id="37" parent="11" name="p_playlistID">
+      <Position>1</Position>
+      <DataType>INTEGER|0s</DataType>
+    </column>
+    <column id="38" parent="11" name="p_name">
+      <Position>2</Position>
+      <DataType>char(25)|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="39" parent="11" name="p_userID">
+      <Position>3</Position>
+      <DataType>DECIMAL(3)|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <key id="40" parent="11">
+      <ColNames>p_playlistID</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="41" parent="11">
+      <ColNames>p_userID</ColNames>
+      <RefTableName>users</RefTableName>
+      <RefColNames>u_userID</RefColNames>
+      <OnDelete>cascade</OnDelete>
+      <OnUpdate>cascade</OnUpdate>
+    </foreign-key>
+    <column id="42" parent="12" name="s_songID">
+      <Position>1</Position>
+      <DataType>INTEGER|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="43" parent="12" name="s_name">
+      <Position>2</Position>
+      <DataType>char(25)|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="44" parent="12" name="s_artID">
+      <Position>3</Position>
+      <DataType>decimal(3)|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="45" parent="12" name="s_albID">
+      <Position>4</Position>
+      <DataType>decimal(3)|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="46" parent="12" name="s_genID">
+      <Position>5</Position>
+      <DataType>decimal(2)|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="47" parent="12" name="s_language">
+      <Position>6</Position>
+      <DataType>char(15)|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <key id="48" parent="12">
+      <ColNames>s_songID</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="49" parent="12">
+      <ColNames>s_artID</ColNames>
+      <RefTableName>artists</RefTableName>
+      <RefColNames>ar_artID</RefColNames>
+      <OnDelete>cascade</OnDelete>
+      <OnUpdate>cascade</OnUpdate>
+    </foreign-key>
+    <foreign-key id="50" parent="12">
+      <ColNames>s_albID</ColNames>
+      <RefTableName>albums</RefTableName>
+      <RefColNames>al_albID</RefColNames>
+      <OnDelete>cascade</OnDelete>
+      <OnUpdate>cascade</OnUpdate>
+    </foreign-key>
+    <foreign-key id="51" parent="12">
+      <ColNames>s_genID</ColNames>
+      <RefTableName>genres</RefTableName>
+      <RefColNames>g_genID</RefColNames>
+      <OnDelete>cascade</OnDelete>
+      <OnUpdate>cascade</OnUpdate>
+    </foreign-key>
+    <column id="52" parent="13" name="type">
+      <Position>1</Position>
+      <DataType>text|0s</DataType>
+    </column>
+    <column id="53" parent="13" name="name">
+      <Position>2</Position>
+      <DataType>text|0s</DataType>
+    </column>
+    <column id="54" parent="13" name="tbl_name">
+      <Position>3</Position>
+      <DataType>text|0s</DataType>
+    </column>
+    <column id="55" parent="13" name="rootpage">
+      <Position>4</Position>
+      <DataType>int|0s</DataType>
+    </column>
+    <column id="56" parent="13" name="sql">
+      <Position>5</Position>
+      <DataType>text|0s</DataType>
+    </column>
+    <column id="57" parent="14" name="u_userID">
+      <Position>1</Position>
+      <DataType>INTEGER|0s</DataType>
+    </column>
+    <column id="58" parent="14" name="u_username">
+      <Position>2</Position>
+      <DataType>CHAR(25)|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="59" parent="14" name="u_fullname">
+      <Position>3</Position>
+      <DataType>char(25)|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="60" parent="14" name="u_age">
+      <Position>4</Position>
+      <DataType>decimal(3)|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="61" parent="14" name="u_country">
+      <Position>5</Position>
+      <DataType>char(25)|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="62" parent="14" name="u_admin">
+      <Position>6</Position>
+      <DataType>INTEGER|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="63" parent="14" name="u_password">
+      <Position>7</Position>
+      <DataType>CHAR(25)|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <key id="64" parent="14">
+      <ColNames>u_userID</ColNames>
+      <Primary>1</Primary>
+    </key>
+  </database-model>
+</dataSource>
