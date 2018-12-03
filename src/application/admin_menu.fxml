@@ -25,7 +25,7 @@
    <top>
       <VBox BorderPane.alignment="CENTER">
          <children>
-            <MenuBar stylesheets="@dark-theme.css">
+            <MenuBar fx:id="menu_bar" stylesheets="@dark-theme.css">
               <menus>
                 <Menu mnemonicParsing="false" style="-fx-text-fill: white;" text="Add">
                   <items>
@@ -38,24 +38,19 @@
                 <Menu mnemonicParsing="false" text="Options">
                   <items>
                     <MenuItem mnemonicParsing="false" text="Change Password" />
-                        <MenuItem mnemonicParsing="false" text="Log Out" />
+                        <MenuItem fx:id="logout_item" mnemonicParsing="false" onAction="#log_out" text="Log Out" />
                   </items>
                 </Menu>
               </menus>
             </MenuBar>
             <HBox spacing="8.0" stylesheets="@dark-theme.css">
                <children>
-                  <TextField fx:id="search_input" promptText="Search">
+                  <TextField fx:id="search_input" onAction="#searchQuery" onKeyTyped="#searchQuery" promptText="Search">
                      <font>
                         <Font name="SansSerif Regular" size="13.0" />
                      </font>
                   </TextField>
                   <ChoiceBox fx:id="search_dropdown" prefWidth="150.0" />
-                  <Button fx:id="search_button" mnemonicParsing="false" onAction="#searchQuery" stylesheets="@dark-theme.css" text="go">
-                     <font>
-                        <Font name="SansSerif Regular" size="13.0" />
-                     </font>
-                  </Button>
                </children>
                <padding>
                   <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
@@ -83,6 +78,7 @@
          <contextMenu>
             <ContextMenu>
               <items>
+                  <MenuItem mnemonicParsing="false" text="Get Info" />
                 <MenuItem mnemonicParsing="false" text="Delete" />
               </items>
             </ContextMenu>
