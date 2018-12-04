@@ -58,6 +58,11 @@ public class Admin_Menu_Controller implements Initializable {
         searchQuery();
     }
 
+    public void change_password_menu() throws IOException
+    {
+        popup_windows.change_password_popup();
+    }
+
     public void add_song_menu() throws IOException
     {
         popup_windows.add_song_popup();
@@ -89,7 +94,6 @@ public class Admin_Menu_Controller implements Initializable {
 
     public void setSortDrop()
     {
-        String current_value = sort_dropdown.getValue();
         sort_dropdown.getItems().clear();
         if(search_dropdown.getValue().equals("Songs"))
         {
@@ -128,7 +132,6 @@ public class Admin_Menu_Controller implements Initializable {
         String sort_by=null;
         search_term = search_input.getText().replace("'","''");;
         search_from = search_dropdown.getValue();
-        resultsTable.getColumns().clear();
         ObservableList<database_object> resultsList = FXCollections.observableArrayList();
         if(search_from.equals("Songs"))
         {
@@ -173,6 +176,7 @@ public class Admin_Menu_Controller implements Initializable {
             languagecol.setCellValueFactory(new PropertyValueFactory<>("songlanguage"));
             languagecol.setSortable(false);
 
+            resultsTable.getColumns().clear();
             resultsTable.getColumns().addAll(songcol,albumcol,artistcol,genrecol,languagecol);
         }
         else if(search_from.equals("Albums"))
@@ -202,6 +206,7 @@ public class Admin_Menu_Controller implements Initializable {
             genrecol.setCellValueFactory(new PropertyValueFactory<>("genrename"));
             genrecol.setSortable(false);
 
+            resultsTable.getColumns().clear();
             resultsTable.getColumns().addAll(albumcol,artistcol,genrecol);
         }
         else if(search_from.equals("Artists"))
@@ -223,6 +228,7 @@ public class Admin_Menu_Controller implements Initializable {
             genrecol.setCellValueFactory(new PropertyValueFactory<>("genrename"));
             genrecol.setSortable(false);
 
+            resultsTable.getColumns().clear();
             resultsTable.getColumns().addAll(artistcol,genrecol);
         }
         else if(search_from.equals("Genres"))
@@ -232,11 +238,12 @@ public class Admin_Menu_Controller implements Initializable {
             genrecol.setCellValueFactory(new PropertyValueFactory<>("genrename"));
             genrecol.setSortable(false);
 
+            resultsTable.getColumns().clear();
             resultsTable.getColumns().add(genrecol);
         }
-        else if(search_from.equals("Playlists") || sort_dropdown.getValue().equals("-"))
+        else if(search_from.equals("Playlists"))
         {
-            if(sort_dropdown.getValue().equals("Playlist")) {
+            if(sort_dropdown.getValue().equals("Playlist") || sort_dropdown.getValue().equals("-")) {
                 sort_by="p_name";
             }
             else if(sort_dropdown.getValue().equals("User")) {
@@ -253,11 +260,12 @@ public class Admin_Menu_Controller implements Initializable {
             usercol.setCellValueFactory(new PropertyValueFactory<>("username"));
             usercol.setSortable(false);
 
+            resultsTable.getColumns().clear();
             resultsTable.getColumns().addAll(playlistcol,usercol);
         }
-        else if(search_from.equals("Users") || sort_dropdown.getValue().equals("-"))
+        else if(search_from.equals("Users"))
         {
-            if(sort_dropdown.getValue().equals("User")) {
+            if(sort_dropdown.getValue().equals("User") || sort_dropdown.getValue().equals("-")) {
                 sort_by="u_username";
             }
             else if(sort_dropdown.getValue().equals("Full Name")){
@@ -295,6 +303,7 @@ public class Admin_Menu_Controller implements Initializable {
             admincol.setCellValueFactory(new PropertyValueFactory<>("admin"));
             admincol.setSortable(false);
 
+            resultsTable.getColumns().clear();
             resultsTable.getColumns().addAll(usercol,fullnamecol,agecol,countrycol,admincol);
         }
         try

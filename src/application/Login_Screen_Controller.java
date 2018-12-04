@@ -20,6 +20,8 @@ public class Login_Screen_Controller {
     public TextField input_username;
     public PasswordField input_password;
     public int u_admin;
+    public static int current_user_ID;
+    public static String current_username;
 
     public void login_pressed(ActionEvent event) throws IOException
     {
@@ -31,17 +33,14 @@ public class Login_Screen_Controller {
             statement.setQueryTimeout(30);
             String u_username = input_username.getText().replace("'","''");
             String u_password = input_password.getText().replace("'","''");
-            ResultSet rs = statement.executeQuery("select u_admin from users where u_username like '"+u_username+"' and u_password='"+u_password+"'");
-            if(!rs.isBeforeFirst())
-            {
-                System.out.println("invalid username or password");
+            ResultSet rs = statement.executeQuery("select u_username, u_userID, u_admin from users where u_username like '"+u_username+"' and u_password='"+u_password+"'");
+            if(!rs.isBeforeFirst()) {
+                popup_windows.invalid_user_password_popup();
             }
-            else
-            {
-                while(rs.next())
-                {
-                    u_admin = rs.getInt("u_admin");
-                }
+            else {
+                current_user_ID = rs.getInt("u_userID");
+                current_username = rs.getString("u_username");
+                u_admin = rs.getInt("u_admin");
                 if(u_admin==1)
                 {
                     if(popup_windows.admin_alert_popup())

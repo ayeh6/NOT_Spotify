@@ -37,7 +37,7 @@
                 </Menu>
                 <Menu mnemonicParsing="false" text="Options">
                   <items>
-                    <MenuItem mnemonicParsing="false" text="Change Password" />
+                    <MenuItem mnemonicParsing="false" onAction="#change_password_menu" text="Change Password" />
                         <MenuItem fx:id="logout_item" mnemonicParsing="false" onAction="#log_out" text="Log Out" />
                   </items>
                 </Menu>
@@ -45,7 +45,7 @@
             </MenuBar>
             <HBox alignment="CENTER_LEFT" spacing="8.0" stylesheets="@dark-theme.css">
                <children>
-                  <TextField fx:id="search_input" promptText="Search for">
+                  <TextField fx:id="search_input" onKeyTyped="#searchQuery" promptText="Search for">
                      <font>
                         <Font name="SansSerif Regular" size="13.0" />
                      </font>

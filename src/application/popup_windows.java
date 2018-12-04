@@ -41,6 +41,36 @@ public class popup_windows {
         stage.showAndWait();
     }
 
+    public static void invalid_user_password_popup() throws IOException
+    {
+        Parent parent = FXMLLoader.load(popup_windows.class.getResource("invalid_user_password.fxml"));
+        Scene scene = new Scene(parent);
+        Stage stage = new Stage();
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.setScene(scene);
+        stage.showAndWait();
+    }
+
+    public static void invalid_password_popup() throws IOException
+    {
+        Parent parent = FXMLLoader.load(popup_windows.class.getResource("invalid_password.fxml"));
+        Scene scene = new Scene(parent);
+        Stage stage = new Stage();
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.setScene(scene);
+        stage.showAndWait();
+    }
+
+    public static void no_match_popup() throws IOException
+    {
+        Parent parent = FXMLLoader.load(popup_windows.class.getResource("no_match.fxml"));
+        Scene scene = new Scene(parent);
+        Stage stage = new Stage();
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.setScene(scene);
+        stage.showAndWait();
+    }
+
     public static void add_artist_popup() throws IOException
     {
         Parent add_artistParent = FXMLLoader.load(popup_windows.class.getResource("add_artist.fxml"));
@@ -81,4 +111,13 @@ public class popup_windows {
         stage.showAndWait();
     }
 
+    public static void change_password_popup() throws IOException
+    {
+        Parent parent = FXMLLoader.load(popup_windows.class.getResource("change_password.fxml"));
+        Scene scene = new Scene(parent);
+        Stage stage = new Stage();
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.setScene(scene);
+        stage.showAndWait();
+    }
 }
