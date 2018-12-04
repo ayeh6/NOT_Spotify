@@ -54,7 +54,7 @@ public class database_object {
         admin=false;
     }
 
-    public void setUser(int ID, String username, String fullname, int age, String country, int admin)
+    public void setUser(int ID, String username, String fullname, int age, String country, int admin, String table)
     {
         this.ID = ID;
         this.username = username;
@@ -69,6 +69,7 @@ public class database_object {
         {
             this.admin = true;
         }
+        this.table=table;
     }
 
     public int getID()

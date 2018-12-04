@@ -39,9 +39,9 @@ public class Admin_Menu_Controller implements Initializable {
         search_dropdown.setValue("Songs");
     }
 
-    public void delete_song()
+    public void delete()
     {
-
+        
     }
 
     public void add_song_menu() throws IOException
@@ -145,7 +145,7 @@ public class Admin_Menu_Controller implements Initializable {
         {
             TableColumn<database_object, String> genrecol = new TableColumn<>("Genre");
             genrecol.setMinWidth(200);
-            genrecol.setCellValueFactory(new PropertyValueFactory<database_object, String>("genrename"));
+            genrecol.setCellValueFactory(new PropertyValueFactory<>("genrename"));
             genrecol.setSortable(false);
 
             resultsTable.getColumns().add(genrecol);
@@ -202,7 +202,7 @@ public class Admin_Menu_Controller implements Initializable {
             ResultSet rs = null;
             if(search_from.equals("Songs"))
             {
-                rs = statement.executeQuery("select s_songID, s_name, al_name, ar_name, g_name, s_language from genres, songs, artists, albums where s_name like '"+search_term+"%' and s_albID=al_albID and s_artID=ar_artID and s_genID=g_genID order by al_name, ar_name asc");
+                rs = statement.executeQuery("select s_songID, s_name, al_name, ar_name, g_name, s_language from genres, songs, artists, albums where s_name like '"+search_term+"%' and s_albID=al_albID and s_artID=ar_artID and s_genID=g_genID order by ar_name, al_name asc");
             }
             else if(search_from.equals("Artists"))
             {
@@ -239,6 +239,10 @@ public class Admin_Menu_Controller implements Initializable {
                 {
                     resultsList.add(new database_object(rs.getInt("ar_artID"),null,null,rs.getString("ar_name"),rs.getString("g_name"),null,null,"artists",null));
                 }
+                else if(search_from.equals("Genres"))
+                {
+                    resultsList.add(new database_object(rs.getInt("g_genID"),null,null,null,rs.getString("g_name"),null,null,"genres",null));
+                }
                 else if(search_from.equals("Playlists"))
                 {
                     resultsList.add(new database_object(rs.getInt("p_playlistID"),null,null,null,null,rs.getString("p_name"),rs.getString("u_username"),"playlists",null));
@@ -246,7 +250,7 @@ public class Admin_Menu_Controller implements Initializable {
                 else if(search_from.equals("Users"))
                 {
                     database_object user = new database_object();
-                    user.setUser(rs.getInt("u_userID"),rs.getString("u_username"),rs.getString("u_fullname"),rs.getInt("u_age"),rs.getString("u_country"),rs.getInt("u_admin"));
+                    user.setUser(rs.getInt("u_userID"),rs.getString("u_username"),rs.getString("u_fullname"),rs.getInt("u_age"),rs.getString("u_country"),rs.getInt("u_admin"),"users");
                     resultsList.add(user);
                 }
             }

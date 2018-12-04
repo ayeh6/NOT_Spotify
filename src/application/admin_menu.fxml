@@ -75,13 +75,13 @@
    </bottom>
    <center>
       <TableView fx:id="resultsTable" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-        <columns>
-          <TableColumn fx:id="col1" minWidth="200.0" prefWidth="200.0" />
-            <TableColumn fx:id="col2" minWidth="200.0" prefWidth="200.0" />
-            <TableColumn fx:id="col3" minWidth="200.0" prefWidth="200.0" />
-            <TableColumn fx:id="col4" minWidth="200.0" prefWidth="200.0" />
-            <TableColumn fx:id="col5" minWidth="200.0" prefWidth="200.0" />
-        </columns>
+         <contextMenu>
+            <ContextMenu>
+              <items>
+                <MenuItem mnemonicParsing="false" text="Delete" />
+              </items>
+            </ContextMenu>
+         </contextMenu>
       </TableView>
    </center>
 </BorderPane>
