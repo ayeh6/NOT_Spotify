@@ -43,14 +43,20 @@
                 </Menu>
               </menus>
             </MenuBar>
-            <HBox spacing="8.0" stylesheets="@dark-theme.css">
+            <HBox alignment="CENTER_LEFT" spacing="8.0" stylesheets="@dark-theme.css">
                <children>
-                  <TextField fx:id="search_input" onAction="#searchQuery" onKeyTyped="#searchQuery" promptText="Search">
+                  <TextField fx:id="search_input" promptText="Search for">
                      <font>
                         <Font name="SansSerif Regular" size="13.0" />
                      </font>
                   </TextField>
-                  <ChoiceBox fx:id="search_dropdown" prefWidth="150.0" />
+                  <ChoiceBox fx:id="search_dropdown" onMousePressed="#setSortDrop" prefWidth="150.0" />
+                  <Label alignment="CENTER" text="Sort By:">
+                     <font>
+                        <Font name="SansSerif Regular" size="13.0" />
+                     </font>
+                  </Label>
+                  <ChoiceBox fx:id="sort_dropdown" onMousePressed="#setSortDrop" prefWidth="150.0" />
                   <Button mnemonicParsing="false" onAction="#searchQuery" text="Go">
                      <font>
                         <Font name="SansSerif Regular" size="13.0" />
