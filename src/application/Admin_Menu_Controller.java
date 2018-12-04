@@ -17,6 +17,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.skin.TableHeaderRow;
 import javafx.stage.Stage;
 
 public class Admin_Menu_Controller implements Initializable {
@@ -24,11 +25,6 @@ public class Admin_Menu_Controller implements Initializable {
     public String search_from,search_select,search_term;
     public TextField search_input;
     public TableView<database_object> resultsTable;
-    public TableColumn<database_object, String> col1;
-    public TableColumn<database_object, String> col2;
-    public TableColumn<database_object, String> col3;
-    public TableColumn<database_object, String> col4;
-    public TableColumn<database_object, String> col5;
     public ChoiceBox<String> search_dropdown;
     public MenuBar menu_bar;
 
@@ -37,11 +33,27 @@ public class Admin_Menu_Controller implements Initializable {
     {
         search_dropdown.getItems().addAll("Songs", "Albums", "Artists", "Genres", "Playlists", "Users");
         search_dropdown.setValue("Songs");
+        searchQuery();
+
     }
 
     public void delete()
     {
-        
+        database_object delete_item = resultsTable.getSelectionModel().getSelectedItem();
+        try
+        {
+            Connection connection = DriverManager.getConnection("jdbc:sqlite:/Users/andrew_yeh/Desktop/Code/NOT Spotify/src/application/playlist_organizer.db");
+            Statement statement = connection.createStatement();
+            statement.execute("PRAGMA foreign_keys = ON");
+            statement.setQueryTimeout(30);
+            statement.executeUpdate("delete from "+delete_item.getTable()+" where "+delete_item.getId_param()+"="+delete_item.getID());
+            connection.close();
+        }
+        catch(SQLException e)
+        {
+            System.err.println(e.getMessage());
+        }
+        searchQuery();
     }
 
     public void add_song_menu() throws IOException
@@ -73,6 +85,14 @@ public class Admin_Menu_Controller implements Initializable {
         stage.show();
     }
 
+    public void setSortDrop()
+    {
+        if(search_dropdown.getValue().equals("songs"))
+        {
+
+        }
+    }
+
     public void searchQuery()
     {
         search_term = search_input.getText().replace("'","''");;
@@ -83,27 +103,27 @@ public class Admin_Menu_Controller implements Initializable {
         {
             TableColumn<database_object, String> songcol = new TableColumn<>("Song");
             songcol.setMinWidth(200);
-            songcol.setCellValueFactory(new PropertyValueFactory<database_object, String>("songname"));
+            songcol.setCellValueFactory(new PropertyValueFactory<>("songname"));
             songcol.setSortable(false);
 
             TableColumn<database_object, String> albumcol = new TableColumn<>("Album");
             albumcol.setMinWidth(200);
-            albumcol.setCellValueFactory(new PropertyValueFactory<database_object, String>("albumname"));
+            albumcol.setCellValueFactory(new PropertyValueFactory<>("albumname"));
             albumcol.setSortable(false);
 
             TableColumn<database_object, String> artistcol = new TableColumn<>("Artist");
             artistcol.setMinWidth(200);
-            artistcol.setCellValueFactory(new PropertyValueFactory<database_object, String>("artistname"));
+            artistcol.setCellValueFactory(new PropertyValueFactory<>("artistname"));
             artistcol.setSortable(false);
 
             TableColumn<database_object, String> genrecol = new TableColumn<>("Genre");
             genrecol.setMinWidth(200);
-            genrecol.setCellValueFactory(new PropertyValueFactory<database_object, String>("genrename"));
+            genrecol.setCellValueFactory(new PropertyValueFactory<>("genrename"));
             genrecol.setSortable(false);
 
             TableColumn<database_object, String> languagecol = new TableColumn<>("Language");
             languagecol.setMinWidth(200);
-            languagecol.setCellValueFactory(new PropertyValueFactory<database_object, String>("songlanguage"));
+            languagecol.setCellValueFactory(new PropertyValueFactory<>("songlanguage"));
             languagecol.setSortable(false);
 
             resultsTable.getColumns().addAll(songcol,albumcol,artistcol,genrecol,languagecol);
@@ -112,17 +132,17 @@ public class Admin_Menu_Controller implements Initializable {
         {
             TableColumn<database_object, String> albumcol = new TableColumn<>("Album");
             albumcol.setMinWidth(200);
-            albumcol.setCellValueFactory(new PropertyValueFactory<database_object, String>("albumname"));
+            albumcol.setCellValueFactory(new PropertyValueFactory<>("albumname"));
             albumcol.setSortable(false);
 
             TableColumn<database_object, String> artistcol = new TableColumn<>("Artist");
             artistcol.setMinWidth(200);
-            artistcol.setCellValueFactory(new PropertyValueFactory<database_object, String>("artistname"));
+            artistcol.setCellValueFactory(new PropertyValueFactory<>("artistname"));
             artistcol.setSortable(false);
 
             TableColumn<database_object, String> genrecol = new TableColumn<>("Genre");
             genrecol.setMinWidth(200);
-            genrecol.setCellValueFactory(new PropertyValueFactory<database_object, String>("genrename"));
+            genrecol.setCellValueFactory(new PropertyValueFactory<>("genrename"));
             genrecol.setSortable(false);
 
             resultsTable.getColumns().addAll(albumcol,artistcol,genrecol);
@@ -131,12 +151,12 @@ public class Admin_Menu_Controller implements Initializable {
         {
             TableColumn<database_object, String> artistcol = new TableColumn<>("Artist");
             artistcol.setMinWidth(200);
-            artistcol.setCellValueFactory(new PropertyValueFactory<database_object, String>("artistname"));
+            artistcol.setCellValueFactory(new PropertyValueFactory<>("artistname"));
             artistcol.setSortable(false);
 
             TableColumn<database_object, String> genrecol = new TableColumn<>("Genre");
             genrecol.setMinWidth(200);
-            genrecol.setCellValueFactory(new PropertyValueFactory<database_object, String>("genrename"));
+            genrecol.setCellValueFactory(new PropertyValueFactory<>("genrename"));
             genrecol.setSortable(false);
 
             resultsTable.getColumns().addAll(artistcol,genrecol);
@@ -154,12 +174,12 @@ public class Admin_Menu_Controller implements Initializable {
         {
             TableColumn<database_object, String> playlistcol = new TableColumn<>("Playlist");
             playlistcol.setMinWidth(200);
-            playlistcol.setCellValueFactory(new PropertyValueFactory<database_object, String>("playlistname"));
+            playlistcol.setCellValueFactory(new PropertyValueFactory<>("playlistname"));
             playlistcol.setSortable(false);
 
             TableColumn<database_object, String> usercol = new TableColumn<>("User");
             usercol.setMinWidth(200);
-            usercol.setCellValueFactory(new PropertyValueFactory<database_object, String>("username"));
+            usercol.setCellValueFactory(new PropertyValueFactory<>("username"));
             usercol.setSortable(false);
 
             resultsTable.getColumns().addAll(playlistcol,usercol);
@@ -168,12 +188,12 @@ public class Admin_Menu_Controller implements Initializable {
         {
             TableColumn<database_object, String> usercol = new TableColumn<>("User");
             usercol.setMinWidth(200);
-            usercol.setCellValueFactory(new PropertyValueFactory<database_object, String>("username"));
+            usercol.setCellValueFactory(new PropertyValueFactory<>("username"));
             usercol.setSortable(false);
 
             TableColumn<database_object, String> fullnamecol = new TableColumn<>("Full Name");
             fullnamecol.setMinWidth(200);
-            fullnamecol.setCellValueFactory(new PropertyValueFactory<database_object, String>("fullname"));
+            fullnamecol.setCellValueFactory(new PropertyValueFactory<>("fullname"));
             fullnamecol.setSortable(false);
 
             TableColumn<database_object, Integer> agecol = new TableColumn<>("Age");
@@ -183,7 +203,7 @@ public class Admin_Menu_Controller implements Initializable {
 
             TableColumn<database_object, String> countrycol = new TableColumn<>("Country");
             countrycol.setMinWidth(200);
-            countrycol.setCellValueFactory(new PropertyValueFactory<database_object, String>("country"));
+            countrycol.setCellValueFactory(new PropertyValueFactory<>("country"));
             countrycol.setSortable(false);
 
             TableColumn<database_object, Boolean> admincol = new TableColumn<>("Admin?");
@@ -202,7 +222,7 @@ public class Admin_Menu_Controller implements Initializable {
             ResultSet rs = null;
             if(search_from.equals("Songs"))
             {
-                rs = statement.executeQuery("select s_songID, s_name, al_name, ar_name, g_name, s_language from genres, songs, artists, albums where s_name like '"+search_term+"%' and s_albID=al_albID and s_artID=ar_artID and s_genID=g_genID order by ar_name, al_name asc");
+                rs = statement.executeQuery("select s_songID, s_name, al_name, ar_name, g_name, s_language from genres, songs, artists, albums where s_name like '"+search_term+"%' and s_albID=al_albID and s_artID=ar_artID and s_genID=g_genID order by s_name asc");
             }
             else if(search_from.equals("Artists"))
             {
@@ -262,4 +282,5 @@ public class Admin_Menu_Controller implements Initializable {
             System.err.println(e.getMessage());
         }
     }
+
 }

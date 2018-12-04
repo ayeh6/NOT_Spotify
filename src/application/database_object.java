@@ -17,6 +17,8 @@ public class database_object {
     String country;
     boolean admin;
 
+    String id_param;
+
 
     public database_object()
     {
@@ -34,6 +36,8 @@ public class database_object {
         age=0;
         country=null;
         admin=false;
+
+        id_param=null;
     }
 
     public database_object(int ID, String songname, String albumname, String artistname, String genrename, String playlistname, String username, String table, String songlanguage)
@@ -52,6 +56,32 @@ public class database_object {
         age=0;
         country=null;
         admin=false;
+
+        if(table.equals("songs"))
+        {
+            id_param="s_songID";
+        }
+        else if(table.equals("albums"))
+        {
+            id_param="al_albID";
+        }
+        else if(table.equals("artists"))
+        {
+            id_param="ar_artID";
+        }
+        else if(table.equals("genres"))
+        {
+            id_param="g_genID";
+        }
+        else if(table.equals("playlists"))
+        {
+            id_param="p_playlistID";
+        }
+        else if(table.equals("users"))
+        {
+            id_param="u_userID";
+        }
+
     }
 
     public void setUser(int ID, String username, String fullname, int age, String country, int admin, String table)
@@ -70,6 +100,7 @@ public class database_object {
             this.admin = true;
         }
         this.table=table;
+        id_param="u_userID";
     }
 
     public int getID()
@@ -125,5 +156,9 @@ public class database_object {
 
     public boolean isAdmin() {
         return admin;
+    }
+
+    public String getId_param() {
+        return id_param;
     }
 }
