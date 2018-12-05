@@ -171,7 +171,7 @@ public class popup_windows {
         stage.showAndWait();
     }
 
-    public static boolean ask_add_song_playlist() throws IOException
+    public static boolean ask_add_song_playlist_popup() throws IOException
     {
         Parent parent = FXMLLoader.load(popup_windows.class.getResource("ask_add_song_playlist.fxml"));
         Scene scene = new Scene(parent);
@@ -182,7 +182,7 @@ public class popup_windows {
         return Ask_Add_Song_Playlist_Controller.yes;
     }
 
-    public static boolean add_song_playlist() throws IOException
+    public static boolean add_song_playlist_popup() throws IOException
     {
         Parent parent = FXMLLoader.load(popup_windows.class.getResource("add_song_playlist.fxml"));
         Scene scene = new Scene(parent);
@@ -191,5 +191,15 @@ public class popup_windows {
         stage.setScene(scene);
         stage.showAndWait();
         return Ask_Add_Song_Playlist_Controller.yes;
+    }
+
+    public static void view_playlist_songs_popup() throws IOException
+    {
+        Parent parent = FXMLLoader.load(popup_windows.class.getResource("view_playlist_songs.fxml"));
+        Scene scene = new Scene(parent);
+        Stage stage = new Stage();
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.setScene(scene);
+        stage.showAndWait();
     }
 }

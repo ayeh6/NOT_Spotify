@@ -28,9 +28,9 @@ public class Create_Playlist_Controller {
             catch (SQLException e) {
                 System.err.println(e.getMessage());
             }
-            if(popup_windows.ask_add_song_playlist()) {
+            if(popup_windows.ask_add_song_playlist_popup()) {
                 //change window to search for song
-                popup_windows.add_song_playlist();
+                popup_windows.add_song_playlist_popup();
                 Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 window.close();
             }

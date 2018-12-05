@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" spacing="10.0" stylesheets="@dark-theme.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.View_Playlist_Songs_Controller">
+   <children>
+      <Label fx:id="playlist_name_label" text="Label" />
+      <TableView fx:id="table">
+        <columns>
+          <TableColumn fx:id="songcol" prefWidth="146.0" text="Song" />
+          <TableColumn fx:id="albumcol" prefWidth="146.0" text="Album" />
+            <TableColumn fx:id="artistcol" prefWidth="146.0" text="Artist" />
+            <TableColumn fx:id="genrecol" prefWidth="146.0" text="Genre" />
+        </columns>
+      </TableView>
+   </children>
+   <padding>
+      <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+   </padding>
+</VBox>

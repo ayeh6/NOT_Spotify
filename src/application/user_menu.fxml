@@ -96,7 +96,9 @@
                   <ContextMenu>
                      <items>
                         <MenuItem mnemonicParsing="false" onAction="#create_playlist" text="Create New Playlist" />
-                        <MenuItem mnemonicParsing="false" onAction="#delete_playlist" text="Delete" />
+                        <MenuItem mnemonicParsing="false" onAction="#view_playlist" text="View Songs" />
+                        <MenuItem mnemonicParsing="false" onAction="#add_song" text="Add Songs" />
+                        <MenuItem mnemonicParsing="false" onAction="#delete_playlist" text="Delete Playlist" />
                      </items>
                   </ContextMenu>
                </contextMenu>

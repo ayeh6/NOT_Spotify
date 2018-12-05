@@ -70,9 +70,19 @@ public class User_Menu_Controller implements Initializable {
 
     }
 
+    public void view_playlist() throws IOException {
+        selected_playlist=user_playlists.getSelectionModel().getSelectedItem();
+        popup_windows.view_playlist_songs_popup();
+    }
+
     public void create_playlist() throws IOException{
         popup_windows.create_playlist_popup();
         list_playlists();
+    }
+
+    public void add_song() throws IOException{
+        selected_playlist=user_playlists.getSelectionModel().getSelectedItem();
+        popup_windows.add_song_playlist_popup();
     }
 
     public void list_playlists()
