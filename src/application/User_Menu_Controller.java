@@ -21,7 +21,7 @@ import javafx.stage.Stage;
 
 public class User_Menu_Controller implements Initializable {
 
-    public String search_from,search_term;
+    public String search_from, search_term;
     public TextField search_input;
     public TableView<database_object> resultsTable;
     public ListView<database_object> user_playlists;
@@ -29,7 +29,6 @@ public class User_Menu_Controller implements Initializable {
     public MenuBar menu_bar;
     public Menu user_menu;
     public MenuItem add_song;
-    public ContextMenu table_context_menu;
     public static database_object selected_playlist;
 
     @Override
@@ -39,7 +38,6 @@ public class User_Menu_Controller implements Initializable {
         user_menu.setText(Login_Screen_Controller.current_username);
         add_song = new MenuItem();
         add_song.setText("add to playlist");
-        table_context_menu.getItems().add(add_song);
         search_dropdown.getSelectionModel().selectedItemProperty().addListener((v, oldValue, newValue) -> {
             searchQuery();
         });
@@ -62,17 +60,17 @@ public class User_Menu_Controller implements Initializable {
     }
 
     public void view_playlist() throws IOException {
-        selected_playlist=user_playlists.getSelectionModel().getSelectedItem();
+        selected_playlist = user_playlists.getSelectionModel().getSelectedItem();
         popup_windows.view_playlist_songs_popup();
     }
 
-    public void create_playlist() throws IOException{
+    public void create_playlist() throws IOException {
         popup_windows.create_playlist_popup();
         list_playlists();
     }
 
-    public void add_song() throws IOException{
-        selected_playlist=user_playlists.getSelectionModel().getSelectedItem();
+    public void add_song() throws IOException {
+        selected_playlist = user_playlists.getSelectionModel().getSelectedItem();
         popup_windows.add_song_playlist_popup();
     }
 
@@ -128,7 +126,6 @@ public class User_Menu_Controller implements Initializable {
 
     public void searchQuery() {
         search_term = search_input.getText().replace("'", "''");
-        ;
         search_from = search_dropdown.getValue();
         ObservableList<database_object> resultsList = FXCollections.observableArrayList();
         if (search_from.equals("Songs")) {

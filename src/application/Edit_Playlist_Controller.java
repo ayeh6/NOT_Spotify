@@ -26,7 +26,7 @@ public class Edit_Playlist_Controller implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        playlist=User_Menu_Controller.selected_playlist;
+        playlist = User_Menu_Controller.selected_playlist;
         playlistlabel.setText(playlist.getPlaylistname());
 
         songCol.setCellValueFactory(new PropertyValueFactory<>("songname"));
@@ -41,9 +41,8 @@ public class Edit_Playlist_Controller implements Initializable {
 
                 if (empty || item == null) {
                     setText(null);
-                }
-                else {
-                    setText(item.getSongname()+" by "+item.getArtistname());
+                } else {
+                    setText(item.getSongname() + " by " + item.getArtistname());
                 }
             }
         });
@@ -62,7 +61,7 @@ public class Edit_Playlist_Controller implements Initializable {
             statement.setQueryTimeout(30);
             ResultSet rs = statement.executeQuery("select s_songID, s_name, ar_name from playlists, adds, songs, artists where p_playlistID=ad_playlistID and ad_songID=s_songID and s_artID=ar_artID and p_playlistID=" + playlist.getID());
             while (rs.next()) {
-                item = new database_object(rs.getInt("s_songID"), rs.getString("s_name"), null,rs.getString("ar_name"),null,null,null,"songs",null);
+                item = new database_object(rs.getInt("s_songID"), rs.getString("s_name"), null, rs.getString("ar_name"), null, null, null, "songs", null);
                 playlist_songs.getItems().add(item);
             }
             connection.close();
@@ -71,7 +70,7 @@ public class Edit_Playlist_Controller implements Initializable {
         }
     }
 
-    public void addSong() throws IOException {
+    public void addSong() {
         //add song to adds table
         database_object song = songs_table.getSelectionModel().getSelectedItem();
         try {
@@ -79,7 +78,7 @@ public class Edit_Playlist_Controller implements Initializable {
             Statement statement = connection.createStatement();
             statement.execute("PRAGMA foreign_keys = ON");
             statement.setQueryTimeout(30);
-            statement.executeUpdate("insert into adds values ("+playlist.getID()+","+song.getID()+")");
+            statement.executeUpdate("insert into adds values (" + playlist.getID() + "," + song.getID() + ")");
             connection.close();
         } catch (SQLException e) {
             System.err.println(e.getMessage());
@@ -94,7 +93,7 @@ public class Edit_Playlist_Controller implements Initializable {
             Statement statement = connection.createStatement();
             statement.execute("PRAGMA foreign_keys = ON");
             statement.setQueryTimeout(30);
-            statement.executeUpdate("delete from adds where ad_songID="+delete.getID()+" and ad_playlistID="+playlist.getID());
+            statement.executeUpdate("delete from adds where ad_songID=" + delete.getID() + " and ad_playlistID=" + playlist.getID());
             connection.close();
         } catch (SQLException e) {
             System.err.println(e.getMessage());
@@ -104,7 +103,7 @@ public class Edit_Playlist_Controller implements Initializable {
 
     public void searchSongs() {
         ObservableList<database_object> resultsList = FXCollections.observableArrayList();
-        String s_name = song_name_input.getText();
+        String s_name = song_name_input.getText().replace("'","''");
         try {
             Connection connection = DriverManager.getConnection("jdbc:sqlite:/Users/andrew_yeh/Desktop/Code/NOT Spotify/src/application/playlist_organizer.db");
             Statement statement = connection.createStatement();

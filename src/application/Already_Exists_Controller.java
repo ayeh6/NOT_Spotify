@@ -9,10 +9,8 @@ import java.io.IOException;
 
 public class Already_Exists_Controller {
 
-    public void close_window(ActionEvent event)
-    {
+    public void close_window(ActionEvent event) {
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
         window.close();
     }
-
 }

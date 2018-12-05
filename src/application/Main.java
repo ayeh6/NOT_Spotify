@@ -9,7 +9,7 @@ import javafx.stage.Stage;
 public class Main extends Application {
 
     @Override
-    public void start(Stage login_stage) throws Exception{
+    public void start(Stage login_stage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("login_screen.fxml"));
         login_stage.setTitle("NOT Spotify");
         login_stage.setScene(new Scene(root));

@@ -22,66 +22,50 @@ public class Add_Song_Controller implements Initializable {
     public TextField song_name_input;
 
     @Override
-    public void initialize(URL url, ResourceBundle resourceBundle)
-    {
-        try
-        {
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        try {
             Connection connection = DriverManager.getConnection("jdbc:sqlite:/Users/andrew_yeh/Desktop/Code/NOT Spotify/src/application/playlist_organizer.db");
             Statement statement = connection.createStatement();
             statement.execute("PRAGMA foreign_keys = ON");
             ResultSet rs = statement.executeQuery("select al_name from albums");
             albumList.setValue(rs.getString("al_name"));
-            while(rs.next())
-            {
+            while (rs.next()) {
                 albumList.getItems().add(rs.getString("al_name"));
             }
             connection.close();
-        }
-        catch(SQLException e)
-        {
+        } catch (SQLException e) {
             System.err.println(e.getMessage());
         }
         languageList.getItems().addAll("Afrikaans", "Albanian", "Amharic", "Arabic", "Armenian", "Azerbaijani", "Basque", "Belarusian", "Bengali", "Bosnian", "Bulgarian", "Catalan", "Cebuano", "Chinese (Simplified)", "Chinese (Traditional)", "Corsican", "Croatian", "Czech", "Danish", "Dutch", "English", "Esperanto", "Estonian", "Finnish", "French", "Frisian", "Galician", "Georgian", "German", "Greek", "Gujarati", "Haitian Creole", "Hausa", "Hawaiian", "Hebrew", "Hindi", "Hmong", "Hungarian", "Icelandic", "Igbo", "Indonesian", "Irish", "Italian", "Japanese", "Javanese", "Kannada", "Kazakh", "Khmer", "Korean", "Kurdish", "Kyrgyz", "Lao", "Latin", "Latvian", "Lithuanian", "Luxembourgish", "Macedonian", "Malagasy", "Malay", "Malayalam", "Maltese", "Maori", "Marathi", "Mongolian", "Myanmar (Burmese)", "Nepali", "Norwegian", "Nyanja (Chichewa)", "Pashto", "Persian", "Polish", "Portuguese (Portugal, Brazil)", "Punjabi", "Romanian", "Russian", "Samoan", "Scots Gaelic", "Serbian", "Sesotho", "Shona", "Sindhi", "Sinhala (Sinhalese)", "Slovak", "Slovenian", "Somali", "Spanish", "Sundanese", "Swahili", "Swedish", "Tagalog (Filipino)", "Tajik", "Tamil", "Telugu", "Thai", "Turkish", "Ukrainian", "Urdu", "Uzbek", "Vietnamese", "Welsh", "Xhosa", "Yiddish", "Yoruba", "Zulu");
         languageList.setValue("English");
     }
 
-    public void add_song(ActionEvent event) throws IOException
-    {
-        String s_name = song_name_input.getText().replace("'","''");
-        try
-        {
+    public void add_song(ActionEvent event) throws IOException {
+        String s_name = song_name_input.getText().replace("'", "''");
+        try {
             Connection connection = DriverManager.getConnection("jdbc:sqlite:/Users/andrew_yeh/Desktop/Code/NOT Spotify/src/application/playlist_organizer.db");
             Statement statement = connection.createStatement();
             statement.execute("PRAGMA foreign_keys = ON");
-            ResultSet rs = statement.executeQuery("select s_songID, al_albID from songs, albums where s_albID=al_albID and s_name like '"+s_name+"' and al_name like '"+albumList.getValue()+"'");
-            if(rs.isBeforeFirst())
-            {
+            ResultSet rs = statement.executeQuery("select s_songID, al_albID from songs, albums where s_albID=al_albID and s_name like '" + s_name + "' and al_name like '" + albumList.getValue() + "'");
+            if (rs.isBeforeFirst()) {
                 popup_windows.already_exists_popup();
-            }
-            else if(!song_name_input.getText().isEmpty())
-            {
-                rs = statement.executeQuery("select al_albID,ar_artID,g_genID from albums,artists,genres where al_artID=ar_artID and al_genID=g_genID and al_name like '"+albumList.getValue()+"'");
-                statement.executeUpdate("insert into songs(s_name, s_artID, s_albID, s_genID, s_language) values ('"+s_name+"',"+rs.getInt("ar_artID")+","+rs.getInt("al_albID")+","+rs.getInt("g_genID")+",'"+languageList.getValue()+"')");
-                if(popup_windows.another_alert_popup())
-                {
+            } else if (!song_name_input.getText().isEmpty()) {
+                rs = statement.executeQuery("select al_albID,ar_artID,g_genID from albums,artists,genres where al_artID=ar_artID and al_genID=g_genID and al_name like '" + albumList.getValue() + "'");
+                statement.executeUpdate("insert into songs(s_name, s_artID, s_albID, s_genID, s_language) values ('" + s_name + "'," + rs.getInt("ar_artID") + "," + rs.getInt("al_albID") + "," + rs.getInt("g_genID") + ",'" + languageList.getValue() + "')");
+                if (popup_windows.another_alert_popup()) {
                     Parent parent = FXMLLoader.load(Add_Song_Controller.class.getResource("add_song.fxml"));
                     Scene scene = new Scene(parent);
                     popup_windows.add_song_popup();
                     Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
                     window.setScene(scene);
                     //window.close();
-                }
-                else
-                {
+                } else {
                     Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
                     window.close();
                 }
             }
-        }
-        catch(SQLException e)
-        {
+        } catch (SQLException e) {
             System.err.println(e.getMessage());
         }
     }
-
 }

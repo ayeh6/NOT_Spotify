@@ -25,7 +25,7 @@ public class View_Playlist_Songs_Controller implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        playlist=User_Menu_Controller.selected_playlist;
+        playlist = User_Menu_Controller.selected_playlist;
         playlist_name_label.setText(playlist.getPlaylistname());
         songcol.setCellValueFactory(new PropertyValueFactory<>("songname"));
         albumcol.setCellValueFactory(new PropertyValueFactory<>("albumname"));
@@ -38,8 +38,8 @@ public class View_Playlist_Songs_Controller implements Initializable {
             Statement statement = connection.createStatement();
             statement.execute("PRAGMA foreign_keys = ON");
             statement.setQueryTimeout(30);
-            ResultSet rs = statement.executeQuery("select s_songID, s_name, al_name, ar_name, g_name from songs,albums,artists,genres,adds,playlists where s_albID=al_albID and s_artID=ar_artID and s_songID=ad_songID and s_genID=g_genID and p_playlistID=ad_playlistID and p_playlistID="+playlist.getID());
-            while(rs.next()) {
+            ResultSet rs = statement.executeQuery("select s_songID, s_name, al_name, ar_name, g_name from songs,albums,artists,genres,adds,playlists where s_albID=al_albID and s_artID=ar_artID and s_songID=ad_songID and s_genID=g_genID and p_playlistID=ad_playlistID and p_playlistID=" + playlist.getID());
+            while (rs.next()) {
                 resultsList.add(new database_object(rs.getInt("s_songID"), rs.getString("s_name"), rs.getString("al_name"), rs.getString("ar_name"), rs.getString("g_name"), null, null, "songs", null));
             }
             table.setItems(resultsList);

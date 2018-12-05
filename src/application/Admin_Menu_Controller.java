@@ -21,7 +21,7 @@ import javafx.stage.Stage;
 
 public class Admin_Menu_Controller implements Initializable {
 
-    public String search_from,search_select,search_term;
+    public String search_from, search_select, search_term;
     public TextField search_input;
     public TableView<database_object> resultsTable;
     public ChoiceBox<String> search_dropdown;
@@ -31,7 +31,7 @@ public class Admin_Menu_Controller implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         search_dropdown.getItems().addAll("Songs", "Albums", "Artists", "Genres", "Playlists", "Users");
         search_dropdown.setValue("Songs");
-        search_dropdown.getSelectionModel().selectedItemProperty().addListener( (v, oldValue, newValue) -> {
+        search_dropdown.getSelectionModel().selectedItemProperty().addListener((v, oldValue, newValue) -> {
             searchQuery();
         });
         searchQuery();
@@ -44,10 +44,9 @@ public class Admin_Menu_Controller implements Initializable {
             Statement statement = connection.createStatement();
             statement.execute("PRAGMA foreign_keys = ON");
             statement.setQueryTimeout(30);
-            statement.executeUpdate("delete from "+delete_item.getTable()+" where "+delete_item.getId_param()+"="+delete_item.getID());
+            statement.executeUpdate("delete from " + delete_item.getTable() + " where " + delete_item.getId_param() + "=" + delete_item.getID());
             connection.close();
-        }
-        catch(SQLException e) {
+        } catch (SQLException e) {
             System.err.println(e.getMessage());
         }
         searchQuery();
@@ -76,7 +75,7 @@ public class Admin_Menu_Controller implements Initializable {
     public void log_out() throws IOException {
         Parent parent = FXMLLoader.load(getClass().getResource("login_screen.fxml"));
         Scene scene = new Scene(parent);
-        Stage stage = (Stage)menu_bar.getScene().getWindow();
+        Stage stage = (Stage) menu_bar.getScene().getWindow();
         stage.setScene(scene);
         stage.show();
     }

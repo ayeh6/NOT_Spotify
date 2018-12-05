@@ -33,8 +33,7 @@ public class Create_User_Controller implements Initializable {
             List<String> countries = Files.lines(path).collect(Collectors.toList());
             countryChoiceBox.getItems().addAll(countries);
             countryChoiceBox.setValue("United States");
-        }
-        catch(IOException e) {
+        } catch (IOException e) {
             System.err.println(e);
         }
     }
@@ -43,23 +42,23 @@ public class Create_User_Controller implements Initializable {
         try {
             age = Integer.parseInt(field.getText());
             return true;
-        } catch(NumberFormatException e) {
+        } catch (NumberFormatException e) {
             return false;
         }
     }
 
     public void add_user(ActionEvent event) throws IOException {
-        String username,fullname,country,password,confirmpassword;
-        if(usernameField.getText().isEmpty() || fullnameField.getText().isEmpty() || ageField.getText().isEmpty() || passwordField.getText().isEmpty() || confirmpasswordField.getText().isEmpty()) {
+        String username, fullname, country, password, confirmpassword;
+        if (usernameField.getText().isEmpty() || fullnameField.getText().isEmpty() || ageField.getText().isEmpty() || passwordField.getText().isEmpty() || confirmpasswordField.getText().isEmpty()) {
             popup_windows.fill_all_fields_popup();
         } else {
-            if(isInt(ageField)) {
-                username = usernameField.getText();
-                fullname = fullnameField.getText();
+            if (isInt(ageField)) {
+                username = usernameField.getText().replace("'","''");
+                fullname = fullnameField.getText().replace("'","''");
                 country = countryChoiceBox.getValue();
-                password = passwordField.getText();
-                confirmpassword = confirmpasswordField.getText();
-                if(password.equals(confirmpassword)) {
+                password = passwordField.getText().replace("'","''");
+                confirmpassword = confirmpasswordField.getText().replace("'","''");
+                if (password.equals(confirmpassword)) {
                     try {
                         Connection connection = DriverManager.getConnection("jdbc:sqlite:/Users/andrew_yeh/Desktop/Code/NOT Spotify/src/application/playlist_organizer.db");
                         Statement statement = connection.createStatement();
@@ -80,12 +79,9 @@ public class Create_User_Controller implements Initializable {
                 } else {
                     popup_windows.no_match_popup();
                 }
-            }
-            else {
+            } else {
                 popup_windows.valid_age_popup();
             }
         }
-
     }
-
 }
