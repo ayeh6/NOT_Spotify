@@ -7,13 +7,12 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="960.0" spacing="10.0" stylesheets="@dark-theme.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.Add_Song_Playlist_Controller">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="960.0" spacing="10.0" stylesheets="@dark-theme.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.Edit_Playlist_Controller">
    <children>
       <HBox alignment="CENTER_LEFT" prefWidth="200.0" spacing="8.0">
          <children>
             <Label text="Song:" />
             <TextField fx:id="song_name_input" onKeyTyped="#searchSongs" promptText="Name" />
-            <ChoiceBox fx:id="sort_by_list" prefWidth="150.0" />
          </children>
       </HBox>
       <HBox prefWidth="200.0" spacing="10.0">
@@ -21,7 +20,14 @@
             <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="250.0" spacing="10.0">
                <children>
                   <Label fx:id="playlistlabel" text="Playlist" />
-                  <ListView fx:id="playlist_songs" prefHeight="355.0" prefWidth="250.0" />
+                  <ListView fx:id="playlist_songs" prefHeight="355.0" prefWidth="250.0">
+                     <contextMenu>
+                        <ContextMenu>
+                          <items>
+                            <MenuItem mnemonicParsing="false" onAction="#deleteSong" text="Delete" />
+                          </items>
+                        </ContextMenu>
+                     </contextMenu></ListView>
                </children>
                <padding>
                   <Insets top="8.0" />

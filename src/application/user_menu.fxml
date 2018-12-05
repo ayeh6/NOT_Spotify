@@ -42,13 +42,7 @@
                                 <Font name="SansSerif Regular" size="13.0" />
                             </font>
                         </TextField>
-                        <ChoiceBox fx:id="search_dropdown" onMousePressed="#setSortDrop" prefWidth="150.0" />
-                        <Label alignment="CENTER" text="Sort By:">
-                            <font>
-                                <Font name="SansSerif Regular" size="13.0" />
-                            </font>
-                        </Label>
-                        <ChoiceBox fx:id="sort_dropdown" prefWidth="150.0" />
+                        <ChoiceBox fx:id="search_dropdown" prefWidth="150.0" />
                         <Button mnemonicParsing="false" onAction="#searchQuery" text="Go">
                             <font>
                                 <Font name="SansSerif Regular" size="13.0" />
@@ -95,10 +89,10 @@
                <contextMenu>
                   <ContextMenu>
                      <items>
-                        <MenuItem mnemonicParsing="false" onAction="#create_playlist" text="Create New Playlist" />
-                        <MenuItem mnemonicParsing="false" onAction="#view_playlist" text="View Songs" />
-                        <MenuItem mnemonicParsing="false" onAction="#add_song" text="Add Songs" />
-                        <MenuItem mnemonicParsing="false" onAction="#delete_playlist" text="Delete Playlist" />
+                        <MenuItem mnemonicParsing="false" onAction="#create_playlist" text="Create New" />
+                        <MenuItem mnemonicParsing="false" onAction="#view_playlist" text="View" />
+                        <MenuItem mnemonicParsing="false" onAction="#add_song" text="Edit" />
+                        <MenuItem mnemonicParsing="false" onAction="#delete_playlist" text="Delete" />
                      </items>
                   </ContextMenu>
                </contextMenu>

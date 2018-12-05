@@ -1,7 +1,10 @@
 package application;
 
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -44,25 +47,29 @@ public class Add_Song_Controller implements Initializable {
 
     public void add_song(ActionEvent event) throws IOException
     {
+        String s_name = song_name_input.getText().replace("'","''");
         try
         {
             Connection connection = DriverManager.getConnection("jdbc:sqlite:/Users/andrew_yeh/Desktop/Code/NOT Spotify/src/application/playlist_organizer.db");
             Statement statement = connection.createStatement();
             statement.execute("PRAGMA foreign_keys = ON");
-            ResultSet rs = statement.executeQuery("select s_songID, al_albID from songs, albums where s_albID=al_albID and al_name like '"+albumList.getValue()+"'");
+            ResultSet rs = statement.executeQuery("select s_songID, al_albID from songs, albums where s_albID=al_albID and s_name like '"+s_name+"' and al_name like '"+albumList.getValue()+"'");
             if(rs.isBeforeFirst())
             {
                 popup_windows.already_exists_popup();
             }
             else if(!song_name_input.getText().isEmpty())
             {
-                String s_name = song_name_input.getText().replace("'","''");
                 rs = statement.executeQuery("select al_albID,ar_artID,g_genID from albums,artists,genres where al_artID=ar_artID and al_genID=g_genID and al_name like '"+albumList.getValue()+"'");
                 statement.executeUpdate("insert into songs(s_name, s_artID, s_albID, s_genID, s_language) values ('"+s_name+"',"+rs.getInt("ar_artID")+","+rs.getInt("al_albID")+","+rs.getInt("g_genID")+",'"+languageList.getValue()+"')");
                 if(popup_windows.another_alert_popup())
                 {
+                    Parent parent = FXMLLoader.load(Add_Song_Controller.class.getResource("add_song.fxml"));
+                    Scene scene = new Scene(parent);
+                    popup_windows.add_song_popup();
                     Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                    window.close();
+                    window.setScene(scene);
+                    //window.close();
                 }
                 else
                 {

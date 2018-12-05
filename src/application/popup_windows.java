@@ -126,7 +126,6 @@ public class popup_windows {
         Parent add_albumParent = FXMLLoader.load(popup_windows.class.getResource("add_album.fxml"));
         Scene add_albumScene = new Scene(add_albumParent);
         Stage add_albumStage = new Stage();
-        add_albumStage.initModality(Modality.APPLICATION_MODAL);
         add_albumStage.setScene(add_albumScene);
         add_albumStage.showAndWait();
     }
@@ -136,7 +135,6 @@ public class popup_windows {
         Parent parent = FXMLLoader.load(popup_windows.class.getResource("add_song.fxml"));
         Scene scene = new Scene(parent);
         Stage stage = new Stage();
-        stage.initModality(Modality.APPLICATION_MODAL);
         stage.setScene(scene);
         stage.showAndWait();
     }
@@ -146,7 +144,6 @@ public class popup_windows {
         Parent parent = FXMLLoader.load(popup_windows.class.getResource("add_genre.fxml"));
         Scene scene = new Scene(parent);
         Stage stage = new Stage();
-        stage.initModality(Modality.APPLICATION_MODAL);
         stage.setScene(scene);
         stage.showAndWait();
     }
@@ -184,10 +181,9 @@ public class popup_windows {
 
     public static boolean add_song_playlist_popup() throws IOException
     {
-        Parent parent = FXMLLoader.load(popup_windows.class.getResource("add_song_playlist.fxml"));
+        Parent parent = FXMLLoader.load(popup_windows.class.getResource("edit_playlist.fxml"));
         Scene scene = new Scene(parent);
         Stage stage = new Stage();
-        stage.initModality(Modality.APPLICATION_MODAL);
         stage.setScene(scene);
         stage.showAndWait();
         return Ask_Add_Song_Playlist_Controller.yes;
@@ -198,7 +194,6 @@ public class popup_windows {
         Parent parent = FXMLLoader.load(popup_windows.class.getResource("view_playlist_songs.fxml"));
         Scene scene = new Scene(parent);
         Stage stage = new Stage();
-        stage.initModality(Modality.APPLICATION_MODAL);
         stage.setScene(scene);
         stage.showAndWait();
     }
