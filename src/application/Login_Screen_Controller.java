@@ -32,9 +32,9 @@ public class Login_Screen_Controller {
     {
         try
         {
-            Connection connection = null;
-            connection = DriverManager.getConnection("jdbc:sqlite:/Users/andrew_yeh/Desktop/Code/NOT Spotify/src/application/playlist_organizer.db");
+            Connection connection = DriverManager.getConnection("jdbc:sqlite:/Users/andrew_yeh/Desktop/Code/NOT Spotify/src/application/playlist_organizer.db");
             Statement statement = connection.createStatement();
+            statement.execute("PRAGMA foreign_keys = ON");
             statement.setQueryTimeout(30);
             String u_username = input_username.getText().replace("'","''");
             String u_password = input_password.getText().replace("'","''");
@@ -52,32 +52,28 @@ public class Login_Screen_Controller {
                     {
                         Parent admin_menuParent = FXMLLoader.load(getClass().getResource("admin_menu.fxml"));
                         Scene admin_menuScene = new Scene(admin_menuParent);
-                        //get stage information
                         Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
                         window.setScene(admin_menuScene);
                         window.show();
-                        if(connection!=null)
-                        {
-                            connection.close();
-                        }
+                        connection.close();
                     }
                     else {
                         Parent admin_menuParent = FXMLLoader.load(getClass().getResource("user_menu.fxml"));
                         Scene admin_menuScene = new Scene(admin_menuParent);
-                        //get stage information
                         Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
                         window.setScene(admin_menuScene);
                         window.show();
+                        connection.close();
                     }
                 }
                 else if(u_admin==0)
                 {
                     Parent admin_menuParent = FXMLLoader.load(getClass().getResource("user_menu.fxml"));
                     Scene admin_menuScene = new Scene(admin_menuParent);
-                    //get stage information
                     Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
                     window.setScene(admin_menuScene);
                     window.show();
+                    connection.close();
                 }
             }
         }

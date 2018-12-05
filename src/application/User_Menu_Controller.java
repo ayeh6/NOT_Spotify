@@ -21,15 +21,17 @@ import javafx.stage.Stage;
 
 public class User_Menu_Controller implements Initializable {
 
-    public String search_from,search_select,search_term;
+    public String search_from,search_term;
     public TextField search_input;
     public TableView<database_object> resultsTable;
+    public ListView<database_object> user_playlists;
     public ChoiceBox<String> search_dropdown;
     public ChoiceBox<String> sort_dropdown;
     public MenuBar menu_bar;
     public Menu user_menu;
     public MenuItem add_song;
     public ContextMenu table_context_menu;
+    public static database_object selected_playlist;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -48,24 +50,71 @@ public class User_Menu_Controller implements Initializable {
         sort_dropdown.getSelectionModel().selectedItemProperty().addListener( (v, oldValue, newValue) -> {
             searchQuery();
         });
+        user_playlists.setCellFactory(param -> new ListCell<>() {
+            @Override
+            protected void updateItem(database_object item, boolean empty) {
+                super.updateItem(item, empty);
+
+                if (empty || item == null || item.getPlaylistname() == null) {
+                    setText(null);
+                }
+                else {
+                    setText(item.getPlaylistname());
+                }
+            }
+        });
+
+        //initialize list with playlist names
+        list_playlists();
         searchQuery();
+
     }
 
-    public void delete()
+    public void create_playlist() throws IOException{
+        popup_windows.create_playlist_popup();
+        list_playlists();
+    }
+
+    public void list_playlists()
     {
-        database_object delete_item = resultsTable.getSelectionModel().getSelectedItem();
-        try {
+        ObservableList<database_object> resultsList = FXCollections.observableArrayList();
+        if(!user_playlists.getItems().isEmpty()) {
+            user_playlists.getItems().clear();
+        }
+        try{
             Connection connection = DriverManager.getConnection("jdbc:sqlite:/Users/andrew_yeh/Desktop/Code/NOT Spotify/src/application/playlist_organizer.db");
             Statement statement = connection.createStatement();
             statement.execute("PRAGMA foreign_keys = ON");
             statement.setQueryTimeout(30);
-            statement.executeUpdate("delete from "+delete_item.getTable()+" where "+delete_item.getId_param()+"="+delete_item.getID());
+            ResultSet rs = statement.executeQuery("select p_playlistID, p_name, u_username from playlists, users where u_userID=p_userID and p_userID="+Login_Screen_Controller.current_user_ID);
+            while(rs.next())
+            {
+                resultsList.add(new database_object(rs.getInt("p_playlistID"), null, null, null, null, rs.getString("p_name"), rs.getString("u_username"), "playlists", null));
+            }
+            user_playlists.getItems().addAll(resultsList);
             connection.close();
         }
-        catch(SQLException e) {
+        catch (SQLException e) {
             System.err.println(e.getMessage());
         }
-        searchQuery();
+    }
+
+    public void delete_playlist()
+    {
+        database_object delete_item = user_playlists.getSelectionModel().getSelectedItem();
+        if(delete_item!=null) {
+            try {
+                Connection connection = DriverManager.getConnection("jdbc:sqlite:/Users/andrew_yeh/Desktop/Code/NOT Spotify/src/application/playlist_organizer.db");
+                Statement statement = connection.createStatement();
+                statement.execute("PRAGMA foreign_keys = ON");
+                statement.setQueryTimeout(30);
+                statement.executeUpdate("delete from playlists where p_playlistID=" + delete_item.getID());
+                connection.close();
+            } catch (SQLException e) {
+                System.err.println(e.getMessage());
+            }
+            list_playlists();
+        }
     }
 
     public void change_password_menu() throws IOException
@@ -86,36 +135,30 @@ public class User_Menu_Controller implements Initializable {
     {
         sort_dropdown.getItems().clear();
         table_context_menu.getItems().clear();
-        if(search_dropdown.getValue().equals("Songs"))
-        {
+        if(search_dropdown.getValue().equals("Songs")) {
             table_context_menu.getItems().add(add_song);
             sort_dropdown.getItems().addAll("-", "Album", "Artist", "Genre", "Language");
             sort_dropdown.setValue("-");
         }
-        else if(search_dropdown.getValue().equals("Albums"))
-        {
+        else if(search_dropdown.getValue().equals("Albums")) {
             sort_dropdown.getItems().addAll("-", "Artist", "Genre");
             sort_dropdown.setValue("-");
         }
-        else if(search_dropdown.getValue().equals("Artists"))
-        {
+        else if(search_dropdown.getValue().equals("Artists")) {
             sort_dropdown.getItems().addAll("-", "Genre");
             sort_dropdown.setValue("-");
         }
-        else if(search_dropdown.getValue().equals("Genres"))
-        {
+        else if(search_dropdown.getValue().equals("Genres")) {
             sort_dropdown.getItems().addAll("-");
             sort_dropdown.setValue("-");
         }
-        else if(search_dropdown.getValue().equals("Playlists"))
-        {
+        else if(search_dropdown.getValue().equals("Playlists")) {
             sort_dropdown.getItems().addAll("-", "User");
             sort_dropdown.setValue("-");
         }
     }
 
-    public void searchQuery()
-    {
+    public void searchQuery() {
         String sort_by=null;
         search_term = search_input.getText().replace("'","''");;
         search_from = search_dropdown.getValue();

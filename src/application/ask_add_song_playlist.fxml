@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="200.0" spacing="10.0" stylesheets="@dark-theme.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.Ask_Add_Song_Playlist_Controller">
+    <children>
+        <Label fx:id="message_label" alignment="TOP_CENTER" stylesheets="@dark-theme.css" text="Add songs?">
+            <padding>
+                <Insets left="8.0" right="8.0" top="8.0" />
+            </padding>
+         <font>
+            <Font name="SansSerif Regular" size="13.0" />
+         </font>
+        </Label>
+        <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0" stylesheets="@dark-theme.css">
+            <children>
+                <Button mnemonicParsing="false" onAction="#yes_pressed" stylesheets="@dark-theme.css" text="Yes" />
+                <Button mnemonicParsing="false" onAction="#no_pressed" stylesheets="@dark-theme.css" text="No" />
+            </children>
+        </HBox>
+    </children>
+</VBox>

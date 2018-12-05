@@ -160,4 +160,36 @@ public class popup_windows {
         stage.setScene(scene);
         stage.showAndWait();
     }
+
+    public static void create_playlist_popup() throws IOException
+    {
+        Parent parent = FXMLLoader.load(popup_windows.class.getResource("create_playlist.fxml"));
+        Scene scene = new Scene(parent);
+        Stage stage = new Stage();
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.setScene(scene);
+        stage.showAndWait();
+    }
+
+    public static boolean ask_add_song_playlist() throws IOException
+    {
+        Parent parent = FXMLLoader.load(popup_windows.class.getResource("ask_add_song_playlist.fxml"));
+        Scene scene = new Scene(parent);
+        Stage stage = new Stage();
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.setScene(scene);
+        stage.showAndWait();
+        return Ask_Add_Song_Playlist_Controller.yes;
+    }
+
+    public static boolean add_song_playlist() throws IOException
+    {
+        Parent parent = FXMLLoader.load(popup_windows.class.getResource("add_song_playlist.fxml"));
+        Scene scene = new Scene(parent);
+        Stage stage = new Stage();
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.setScene(scene);
+        stage.showAndWait();
+        return Ask_Add_Song_Playlist_Controller.yes;
+    }
 }

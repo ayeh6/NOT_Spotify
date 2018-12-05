@@ -84,15 +84,27 @@
         </TableView>
     </center>
    <left>
-      <ListView prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-         <contextMenu>
-            <ContextMenu>
-              <items>
-                <MenuItem mnemonicParsing="false" text="Create New Playlist" />
-                  <MenuItem mnemonicParsing="false" text="Delete" />
-              </items>
-            </ContextMenu>
-         </contextMenu>
-      </ListView>
+      <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="200.0" spacing="10.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label text="Playlists">
+               <font>
+                  <Font name="SansSerif Regular" size="13.0" />
+               </font>
+            </Label>
+            <ListView fx:id="user_playlists" prefHeight="582.0" prefWidth="300.0">
+               <contextMenu>
+                  <ContextMenu>
+                     <items>
+                        <MenuItem mnemonicParsing="false" onAction="#create_playlist" text="Create New Playlist" />
+                        <MenuItem mnemonicParsing="false" onAction="#delete_playlist" text="Delete" />
+                     </items>
+                  </ContextMenu>
+               </contextMenu>
+            </ListView>
+         </children>
+         <padding>
+            <Insets left="8.0" right="8.0" top="8.0" />
+         </padding>
+      </VBox>
    </left>
 </BorderPane>

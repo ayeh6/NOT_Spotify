@@ -29,8 +29,7 @@ public class Admin_Menu_Controller implements Initializable {
     public MenuBar menu_bar;
 
     @Override
-    public void initialize(URL url, ResourceBundle resourceBundle)
-    {
+    public void initialize(URL url, ResourceBundle resourceBundle) {
         search_dropdown.getItems().addAll("Songs", "Albums", "Artists", "Genres", "Playlists", "Users");
         search_dropdown.setValue("Songs");
         sort_dropdown.getItems().addAll("Song", "Album", "Artist", "Genre", "Language");
@@ -43,14 +42,11 @@ public class Admin_Menu_Controller implements Initializable {
             searchQuery();
         });
         searchQuery();
-
     }
 
-    public void delete()
-    {
+    public void delete() {
         database_object delete_item = resultsTable.getSelectionModel().getSelectedItem();
-        try
-        {
+        try {
             Connection connection = DriverManager.getConnection("jdbc:sqlite:/Users/andrew_yeh/Desktop/Code/NOT Spotify/src/application/playlist_organizer.db");
             Statement statement = connection.createStatement();
             statement.execute("PRAGMA foreign_keys = ON");
@@ -58,40 +54,33 @@ public class Admin_Menu_Controller implements Initializable {
             statement.executeUpdate("delete from "+delete_item.getTable()+" where "+delete_item.getId_param()+"="+delete_item.getID());
             connection.close();
         }
-        catch(SQLException e)
-        {
+        catch(SQLException e) {
             System.err.println(e.getMessage());
         }
         searchQuery();
     }
 
-    public void change_password_menu() throws IOException
-    {
+    public void change_password_menu() throws IOException {
         popup_windows.change_password_popup();
     }
 
-    public void add_song_menu() throws IOException
-    {
+    public void add_song_menu() throws IOException {
         popup_windows.add_song_popup();
     }
 
-    public void add_album_menu() throws IOException
-    {
+    public void add_album_menu() throws IOException {
         popup_windows.add_album_popup();
     }
 
-    public void add_artist_menu() throws IOException
-    {
+    public void add_artist_menu() throws IOException {
         popup_windows.add_artist_popup();
     }
 
-    public void add_genre_menu() throws IOException
-    {
+    public void add_genre_menu() throws IOException {
         popup_windows.add_genre_popup();
     }
 
-    public void log_out() throws IOException
-    {
+    public void log_out() throws IOException {
         Parent parent = FXMLLoader.load(getClass().getResource("login_screen.fxml"));
         Scene scene = new Scene(parent);
         Stage stage = (Stage)menu_bar.getScene().getWindow();
@@ -99,48 +88,41 @@ public class Admin_Menu_Controller implements Initializable {
         stage.show();
     }
 
-    public void setSortDrop()
-    {
+    public void setSortDrop() {
         sort_dropdown.getItems().clear();
-        if(search_dropdown.getValue().equals("Songs"))
-        {
+        if(search_dropdown.getValue().equals("Songs")) {
             sort_dropdown.getItems().addAll("Song", "Album", "Artist", "Genre", "Language");
             sort_dropdown.setValue("Song");
         }
-        else if(search_dropdown.getValue().equals("Albums"))
-        {
+        else if(search_dropdown.getValue().equals("Albums")) {
             sort_dropdown.getItems().addAll("Album", "Artist", "Genre");
             sort_dropdown.setValue("Album");
         }
-        else if(search_dropdown.getValue().equals("Artists"))
-        {
+        else if(search_dropdown.getValue().equals("Artists")) {
             sort_dropdown.getItems().addAll("Artist", "Genre");
             sort_dropdown.setValue("Artist");
         }
-        else if(search_dropdown.getValue().equals("Genres"))
-        {
+        else if(search_dropdown.getValue().equals("Genres")) {
             sort_dropdown.getItems().addAll("Genre");
             sort_dropdown.setValue("Genre");
         }
-        else if(search_dropdown.getValue().equals("Playlists"))
-        {
+        else if(search_dropdown.getValue().equals("Playlists")) {
             sort_dropdown.getItems().addAll("Playlist", "User");
             sort_dropdown.setValue("Playlist");
         }
-        else if(search_dropdown.getValue().equals("Users"))
-        {
+        else if(search_dropdown.getValue().equals("Users")) {
             sort_dropdown.getItems().addAll("Username", "Full Name", "Age", "Country");
             sort_dropdown.setValue("Username");
         }
     }
 
-    public void searchQuery()
-    {
-        String sort_by=null;
-        search_term = search_input.getText().replace("'","''");;
+    public void searchQuery() {
+        String sort_by = null;
+        search_term = search_input.getText().replace("'", "''");
+        ;
         search_from = search_dropdown.getValue();
         ObservableList<database_object> resultsList = FXCollections.observableArrayList();
-        if(!sort_dropdown.getItems().isEmpty()) {
+        if (!sort_dropdown.getItems().isEmpty()) {
             if (search_from.equals("Songs")) {
                 if (sort_dropdown.getValue().equals("Song") || sort_dropdown.getValue().equals("-")) {
                     sort_by = "s_name";
@@ -336,5 +318,4 @@ public class Admin_Menu_Controller implements Initializable {
             }
         }
     }
-
 }
