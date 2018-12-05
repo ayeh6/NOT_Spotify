@@ -23,6 +23,11 @@ public class Login_Screen_Controller {
     public static int current_user_ID;
     public static String current_username;
 
+    public void create_user(ActionEvent event) throws IOException
+    {
+        popup_windows.create_user_popup();
+    }
+
     public void login_pressed(ActionEvent event) throws IOException
     {
         try

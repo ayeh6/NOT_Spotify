@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="270.0" prefWidth="400.0" spacing="10.0" stylesheets="@dark-theme.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.Create_User_Controller">
+   <children>
+      <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+         <children>
+            <Label text="Username:" />
+            <Region prefHeight="30.0" prefWidth="131.0" />
+            <TextField fx:id="usernameField" />
+         </children>
+      </HBox>
+      <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+         <children>
+            <Label text="Full Name:" />
+            <Region prefHeight="30.0" prefWidth="133.0" />
+            <TextField fx:id="fullnameField" />
+         </children>
+      </HBox>
+      <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+         <children>
+            <Label text="Age:" />
+            <Region prefHeight="30.0" prefWidth="170.0" />
+            <TextField fx:id="ageField" />
+         </children>
+      </HBox>
+      <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+         <children>
+            <Label text="Country:" />
+            <Region prefHeight="30.0" prefWidth="145.0" />
+            <ChoiceBox fx:id="countryChoiceBox" prefWidth="167.0" />
+         </children>
+      </HBox>
+      <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+         <children>
+            <Label text="Password:" />
+            <Region prefHeight="30.0" prefWidth="134.0" />
+            <PasswordField fx:id="passwordField" />
+         </children>
+      </HBox>
+      <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+         <children>
+            <Label text="Confirm Password:" />
+            <Region prefHeight="30.0" prefWidth="82.0" />
+            <PasswordField fx:id="confirmpasswordField" />
+         </children>
+      </HBox>
+      <Button mnemonicParsing="false" onAction="#add_user" text="Create" />
+   </children>
+   <padding>
+      <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+   </padding>
+</VBox>

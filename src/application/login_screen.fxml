@@ -26,13 +26,24 @@
                <VBox.margin>
                   <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
                </VBox.margin></PasswordField>
-            <Button mnemonicParsing="false" onAction="#login_pressed" stylesheets="@dark-theme.css" text="Login" textFill="WHITE" VBox.vgrow="ALWAYS">
-               <font>
-                  <Font name="SansSerif Bold" size="14.0" />
-               </font>
+            <HBox prefHeight="100.0" prefWidth="200.0" spacing="8.0">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#login_pressed" stylesheets="@dark-theme.css" text="Login" textFill="WHITE">
+                     <font>
+                        <Font name="SansSerif Bold" size="14.0" />
+                     </font>
+                  </Button>
+                  <Region prefWidth="26.0" />
+                  <Button mnemonicParsing="false" onAction="#create_user" stylesheets="@dark-theme.css" text="Create Account" textFill="WHITE">
+                     <font>
+                        <Font name="SansSerif Bold" size="14.0" />
+                     </font>
+                  </Button>
+               </children>
                <VBox.margin>
                   <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
-               </VBox.margin></Button>
+               </VBox.margin>
+            </HBox>
          </children>
       </VBox>
    </center>

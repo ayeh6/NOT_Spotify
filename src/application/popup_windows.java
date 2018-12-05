@@ -41,6 +41,36 @@ public class popup_windows {
         stage.showAndWait();
     }
 
+    public static void create_user_popup() throws IOException
+    {
+        Parent parent = FXMLLoader.load(popup_windows.class.getResource("create_user.fxml"));
+        Scene scene = new Scene(parent);
+        Stage stage = new Stage();
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.setScene(scene);
+        stage.showAndWait();
+    }
+
+    public static void fill_all_fields_popup() throws IOException
+    {
+        Parent parent = FXMLLoader.load(popup_windows.class.getResource("fill_all_fields.fxml"));
+        Scene scene = new Scene(parent);
+        Stage stage = new Stage();
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.setScene(scene);
+        stage.showAndWait();
+    }
+
+    public static void user_exists_popup() throws IOException
+    {
+        Parent parent = FXMLLoader.load(popup_windows.class.getResource("user_exists.fxml"));
+        Scene scene = new Scene(parent);
+        Stage stage = new Stage();
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.setScene(scene);
+        stage.showAndWait();
+    }
+
     public static void invalid_user_password_popup() throws IOException
     {
         Parent parent = FXMLLoader.load(popup_windows.class.getResource("invalid_user_password.fxml"));
@@ -64,6 +94,16 @@ public class popup_windows {
     public static void no_match_popup() throws IOException
     {
         Parent parent = FXMLLoader.load(popup_windows.class.getResource("no_match.fxml"));
+        Scene scene = new Scene(parent);
+        Stage stage = new Stage();
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.setScene(scene);
+        stage.showAndWait();
+    }
+
+    public static void valid_age_popup() throws IOException
+    {
+        Parent parent = FXMLLoader.load(popup_windows.class.getResource("valid_age.fxml"));
         Scene scene = new Scene(parent);
         Stage stage = new Stage();
         stage.initModality(Modality.APPLICATION_MODAL);
