@@ -50,13 +50,13 @@
                         <Font name="SansSerif Regular" size="13.0" />
                      </font>
                   </TextField>
-                  <ChoiceBox fx:id="search_dropdown" onMousePressed="#setSortDrop" prefWidth="150.0" />
+                  <ChoiceBox fx:id="search_dropdown" prefWidth="150.0" />
                   <Label alignment="CENTER" text="Sort By:">
                      <font>
                         <Font name="SansSerif Regular" size="13.0" />
                      </font>
                   </Label>
-                  <ChoiceBox fx:id="sort_dropdown" onMousePressed="#setSortDrop" prefWidth="150.0" />
+                  <ChoiceBox fx:id="sort_dropdown" prefWidth="150.0" />
                   <Button mnemonicParsing="false" onAction="#searchQuery" text="Go">
                      <font>
                         <Font name="SansSerif Regular" size="13.0" />

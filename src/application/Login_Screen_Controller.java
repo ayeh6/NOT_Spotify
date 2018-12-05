@@ -61,10 +61,23 @@ public class Login_Screen_Controller {
                             connection.close();
                         }
                     }
+                    else {
+                        Parent admin_menuParent = FXMLLoader.load(getClass().getResource("user_menu.fxml"));
+                        Scene admin_menuScene = new Scene(admin_menuParent);
+                        //get stage information
+                        Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+                        window.setScene(admin_menuScene);
+                        window.show();
+                    }
                 }
                 else if(u_admin==0)
                 {
-                    // normal user menu
+                    Parent admin_menuParent = FXMLLoader.load(getClass().getResource("user_menu.fxml"));
+                    Scene admin_menuScene = new Scene(admin_menuParent);
+                    //get stage information
+                    Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+                    window.setScene(admin_menuScene);
+                    window.show();
                 }
             }
         }
