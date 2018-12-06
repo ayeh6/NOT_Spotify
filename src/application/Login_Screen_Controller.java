@@ -22,6 +22,7 @@ public class Login_Screen_Controller {
     public int u_admin;
     public static int current_user_ID;
     public static String current_username;
+    public static database_object selected_playlist;
 
     public void create_user(ActionEvent event) throws IOException {
         popup_windows.create_user_popup();

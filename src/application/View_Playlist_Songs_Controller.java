@@ -25,7 +25,7 @@ public class View_Playlist_Songs_Controller implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        playlist = User_Menu_Controller.selected_playlist;
+        playlist = Login_Screen_Controller.selected_playlist;
         playlist_name_label.setText(playlist.getPlaylistname());
         songcol.setCellValueFactory(new PropertyValueFactory<>("songname"));
         albumcol.setCellValueFactory(new PropertyValueFactory<>("albumname"));

@@ -82,9 +82,9 @@
    <center>
       <TableView fx:id="resultsTable" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <contextMenu>
-            <ContextMenu>
+            <ContextMenu fx:id="table_context">
               <items>
-                <MenuItem mnemonicParsing="false" onAction="#delete" text="Delete" />
+                <MenuItem fx:id="delete_item" mnemonicParsing="false" onAction="#delete" text="Delete" />
               </items>
             </ContextMenu>
          </contextMenu>
