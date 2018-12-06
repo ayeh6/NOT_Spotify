@@ -39,7 +39,7 @@ public class Add_Album_Controller implements Initializable {
             Connection connection = DriverManager.getConnection("jdbc:sqlite:/Users/andrew_yeh/Desktop/Code/NOT Spotify/src/application/playlist_organizer.db");
             Statement statement = connection.createStatement();
             statement.execute("PRAGMA foreign_keys = ON");
-            ResultSet rs = statement.executeQuery("select al_albID, ar_artID,g_genID from albums,artists,genres where al_artID=ar_artID and ar_genID=g_genID and ar_name like '" + artistList.getValue() + "'");
+            ResultSet rs = statement.executeQuery("select al_albID, ar_artID,g_genID from albums,artists,genres where al_artID=ar_artID and ar_genID=g_genID and al_name like '"+album_name_input.getText()+"' and ar_name like '" + artistList.getValue() + "'");
             if (rs.isBeforeFirst()) {
                 popup_windows.already_exists_popup();
             } else if (!album_name_input.getText().isEmpty()) {

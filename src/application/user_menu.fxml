@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
@@ -55,17 +56,20 @@
         </HBox>
     </bottom>
     <center>
-        <TableView fx:id="resultsTable" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+        <TableView fx:id="resultsTable" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <contextMenu>
+            <ContextMenu fx:id="table_context" />
+         </contextMenu></TableView>
     </center>
    <left>
-      <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="200.0" spacing="10.0" BorderPane.alignment="CENTER">
+      <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="250.0" spacing="10.0" BorderPane.alignment="CENTER">
          <children>
-            <Label text="Playlists">
+            <Label text="Added Playlists">
                <font>
                   <Font name="SansSerif Regular" size="13.0" />
                </font>
             </Label>
-            <ListView fx:id="user_playlists" prefHeight="582.0" prefWidth="300.0">
+            <ListView fx:id="user_playlists" prefHeight="582.0" prefWidth="250.0">
                <contextMenu>
                   <ContextMenu>
                      <items>

@@ -26,6 +26,7 @@ public class User_Menu_Controller implements Initializable {
     public TableView<database_object> resultsTable;
     public ListView<database_object> user_playlists;
     public ChoiceBox<String> search_dropdown;
+    public ContextMenu table_context;
     public MenuBar menu_bar;
     public Menu user_menu;
     public MenuItem add_song;
@@ -49,7 +50,7 @@ public class User_Menu_Controller implements Initializable {
                 if (empty || item == null || item.getPlaylistname() == null) {
                     setText(null);
                 } else {
-                    setText(item.getPlaylistname());
+                    setText(item.getPlaylistname()+" by "+item.getUsername());
                 }
             }
         });
@@ -69,6 +70,21 @@ public class User_Menu_Controller implements Initializable {
         list_playlists();
     }
 
+    public void add_playlist() {
+        database_object playlist = resultsTable.getSelectionModel().getSelectedItem();
+        try {
+            Connection connection = DriverManager.getConnection("jdbc:sqlite:/Users/andrew_yeh/Desktop/Code/NOT Spotify/src/application/playlist_organizer.db");
+            Statement statement = connection.createStatement();
+            statement.execute("PRAGMA foreign_keys = ON");
+            statement.setQueryTimeout(30);
+            statement.executeUpdate("insert into listens values ("+Login_Screen_Controller.current_user_ID+","+playlist.getID()+")");
+            connection.close();
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        }
+        list_playlists();
+    }
+
     public void add_song() throws IOException {
         selected_playlist = user_playlists.getSelectionModel().getSelectedItem();
         popup_windows.add_song_playlist_popup();
@@ -84,9 +100,13 @@ public class User_Menu_Controller implements Initializable {
             Statement statement = connection.createStatement();
             statement.execute("PRAGMA foreign_keys = ON");
             statement.setQueryTimeout(30);
-            ResultSet rs = statement.executeQuery("select p_playlistID, p_name, u_username from playlists, users where u_userID=p_userID and p_userID=" + Login_Screen_Controller.current_user_ID);
+            ResultSet rs = statement.executeQuery("select p_playlistID, p_name, u_username from playlists, users where u_userID=p_userID and u_userID=" + Login_Screen_Controller.current_user_ID);
             while (rs.next()) {
                 resultsList.add(new database_object(rs.getInt("p_playlistID"), null, null, null, null, rs.getString("p_name"), rs.getString("u_username"), "playlists", null));
+            }
+            rs = statement.executeQuery("select p_playlistID, p_name, creator.u_username as username from playlists, users as user, users as creator, listens where user.u_userID<>p_userID and creator.u_userID=p_userID and user.u_userID=l_userID and l_playlistID=p_playlistID and user.u_userID='"+Login_Screen_Controller.current_user_ID+"'");
+            while(rs.next()) {
+                resultsList.add(new database_object(rs.getInt("p_playlistID"), null, null, null, null, rs.getString("p_name"), rs.getString("username"), "listens", null));
             }
             user_playlists.getItems().addAll(resultsList);
             connection.close();
@@ -97,13 +117,25 @@ public class User_Menu_Controller implements Initializable {
 
     public void delete_playlist() {
         database_object delete_item = user_playlists.getSelectionModel().getSelectedItem();
-        if (delete_item != null) {
+        if (delete_item.getUsername().equals(Login_Screen_Controller.current_username)) {
             try {
                 Connection connection = DriverManager.getConnection("jdbc:sqlite:/Users/andrew_yeh/Desktop/Code/NOT Spotify/src/application/playlist_organizer.db");
                 Statement statement = connection.createStatement();
                 statement.execute("PRAGMA foreign_keys = ON");
                 statement.setQueryTimeout(30);
                 statement.executeUpdate("delete from playlists where p_playlistID=" + delete_item.getID());
+                connection.close();
+            } catch (SQLException e) {
+                System.err.println(e.getMessage());
+            }
+            list_playlists();
+        } else {
+            try {
+                Connection connection = DriverManager.getConnection("jdbc:sqlite:/Users/andrew_yeh/Desktop/Code/NOT Spotify/src/application/playlist_organizer.db");
+                Statement statement = connection.createStatement();
+                statement.execute("PRAGMA foreign_keys = ON");
+                statement.setQueryTimeout(30);
+                statement.executeUpdate("delete from listens where l_playlistID=" + delete_item.getID() + " and l_userID=" + Login_Screen_Controller.current_user_ID);
                 connection.close();
             } catch (SQLException e) {
                 System.err.println(e.getMessage());
@@ -128,6 +160,7 @@ public class User_Menu_Controller implements Initializable {
         search_term = search_input.getText().replace("'", "''");
         search_from = search_dropdown.getValue();
         ObservableList<database_object> resultsList = FXCollections.observableArrayList();
+        table_context.getItems().clear();
         if (search_from.equals("Songs")) {
             TableColumn<database_object, String> songcol = new TableColumn<>("Song");
             songcol.setMinWidth(200);
@@ -185,6 +218,14 @@ public class User_Menu_Controller implements Initializable {
             resultsTable.getColumns().clear();
             resultsTable.getColumns().add(genrecol);
         } else if (search_from.equals("Playlists")) {
+
+            MenuItem add_playlist_item = new MenuItem();
+            add_playlist_item.setText("Add to Playlists");
+            add_playlist_item.setOnAction(e -> {
+                add_playlist();
+            });
+            table_context.getItems().add(add_playlist_item);
+
             TableColumn<database_object, String> playlistcol = new TableColumn<>("Playlist");
             playlistcol.setMinWidth(200);
             playlistcol.setCellValueFactory(new PropertyValueFactory<>("playlistname"));
